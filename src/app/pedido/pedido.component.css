@@ -1,0 +1,129 @@
+:host {
+  display: block;
+  background-color: #0b0b0b;
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+.caja-oriental {
+  background: rgba(20, 20, 20, 0.95);
+  border: 2px solid #d4af37;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 25px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+
+.texto-dorado {
+  color: #f5d77f;
+}
+
+
+.titulo-seccion {
+  text-shadow: 2px 2px 4px #000000;
+}
+
+
+.item-nombre {
+  font-size: 1.1rem;
+}
+
+
+.texto-vacio {
+  font-size: 0.95rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+
+.modal-manila-estilo {
+  background-color: #212529; 
+  border: 2px solid #b8860b; 
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Cabecera */
+.modal-header-manila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-titulo {
+  color: #ffc107; 
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+
+.btn-cerrar-x {
+  background: transparent;
+  border: none;
+  color: #ffc107;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-cerrar-x:hover {
+  color: #fff;
+}
+
+
+.linea-dorada {
+  border: 0;
+  height: 1px;
+  background-color: #b8860b;
+  margin: 15px 0;
+}
+
+
+.modal-body-manila {
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.1rem;
+  padding: 15px 0;
+}
+
+
+.modal-footer-manila {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+
+.btn-vale {
+  background-color: #ffc107;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 8px 40px;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s;
+}
+
+.btn-vale:hover {
+  background-color: #e0a800;
+}

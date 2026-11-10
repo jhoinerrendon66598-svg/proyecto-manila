@@ -1,0 +1,19 @@
+
+footer {
+  background-color: #121212 !important;
+  border-top: 1px solid #ffc107 !important;
+  color: #ffffff;
+  width: 100%;
+  margin-top: -20px; 
+}
+
+footer h5 {
+  border-bottom: 1px solid #ffc107;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+}
+
+footer a.link-activo {
+  color: #ffc107 !important;
+  font-weight: bold !important;
+}

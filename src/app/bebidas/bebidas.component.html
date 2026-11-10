@@ -1,0 +1,145 @@
+<div class="container-fluid px-4 py-3 d-flex flex-column min-vh-100">
+
+  <div class="flex-grow-1">
+
+    <!-- 1. Bloque Superior: Categorías + Buscadores y Selectores -->
+    <div class="card bg-dark text-white shadow border border-warning mb-4 p-3">
+      <div class="row align-items-center g-3">
+        
+        <div class="col-lg-4 col-md-12 text-center text-lg-start border-lg-end border-warning">
+          <h3 class="fw-bold text-warning m-0">CATEGORÍAS 🍸</h3>
+        </div>
+
+        <div class="col-lg-8 col-md-12">
+          <div class="d-flex flex-column gap-2">
+            <!-- Buscador por Nombre -->
+            <div class="input-group">
+              <input type="text" [(ngModel)]="textoBusquedaNombre" class="form-control bg-light text-dark border-warning" placeholder="Buscar Bebida por Nombre . . .">
+              <button (click)="buscarPorNombre()" class="btn btn-warning fw-bold text-dark px-4" type="button">Buscar</button>
+            </div>
+            <!-- Buscador por Ingrediente -->
+            <div class="input-group">
+              <input type="text" [(ngModel)]="textoBusquedaIngrediente" class="form-control bg-light text-dark border-warning" placeholder="Buscar Bebida por Ingrediente . . .">
+              <button (click)="buscarPorIngrediente()" class="btn btn-warning fw-bold text-dark px-4" type="button">Buscar</button>
+            </div>
+            
+            <!-- Selectores Tipo y Categoría -->
+            <div class="row g-2 mt-1">
+              <div class="col-md-6">
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text bg-warning text-dark fw-bold">Tipo:</span>
+                  <select [(ngModel)]="tipoSeleccionado" (change)="cambiarTipo()" class="form-select bg-dark text-light border-warning">
+                    <option value="Elegir">Elegir</option>
+                    <option value="Alcoholica">Alcohólica</option>
+                    <option value="NoAlcoholica">Sin Alcohol</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text bg-warning text-dark fw-bold">Categoría:</span>
+                  <select [(ngModel)]="categoriaSelect" (change)="cambiarCategoriaSelect()" class="form-select bg-dark text-light border-warning">
+                    <option value="Elegir">Elegir</option>
+                    <option value="Nacional">Ordinaria</option>
+                    <option value="Importada">Coctel</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 2. Tarjetas de Categorías Superiores con Imágenes -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-3 mb-5">
+      
+      <div class="col" *ngFor="let cat of [
+        {name: 'Beer', img: 'https://images.unsplash.com/photo-1535958636474-b021ee887b13?auto=format&fit=crop&w=800&q=80'},
+        {name: 'Cocktail', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80'},
+        {name: 'Cocoa', img: 'https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=800&q=80'},
+        {name: 'Coffee / Tea', img: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80'},
+        {name: 'Homemade Liqueur', img: 'https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?auto=format&fit=crop&w=800&q=80'},
+        {name: 'Ordinary Drink', img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80'}
+      ]">
+        <div class="card bg-dark text-white shadow border border-warning h-100 p-2 text-center">
+          <div class="border border-warning rounded p-1 mb-2 bg-black">
+            <img [src]="cat.img" class="w-100 rounded img-cat-superior" [alt]="cat.name">
+          </div>
+          <h6 class="fw-bold text-warning mb-2">{{ cat.name }}</h6>
+          <button (click)="seleccionarCategoria(cat.name)" class="btn btn-outline-warning btn-sm w-100 fw-bold mt-auto">Ver bebidas</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 3. Listado de Bebidas Filtradas -->
+    <div *ngIf="mostrarBebidas">
+      
+      <div class="text-center my-4">
+        <h2 class="text-warning fw-bold display-5 border-bottom border-warning pb-2 d-inline-block titulo-seccion">Nuestras Bebidas</h2>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div *ngIf="bebidasFiltradas.length === 0" class="col-12 text-center py-4">
+          <h5 class="text-warning">No se encontraron resultados para tu búsqueda.</h5>
+        </div>
+
+        <div *ngFor="let bebida of bebidasFiltradas" class="col-lg-3 col-md-6">
+          <div class="card bg-dark text-white shadow border border-warning h-100 p-2 text-center position-relative d-flex flex-column justify-content-between">
+            
+            <span class="position-absolute top-0 end-0 badge bg-warning text-dark fw-bold m-3 px-3 py-2 shadow badge-precio">
+              $ {{ bebida.precio | number }}
+            </span>
+
+            <div>
+              <div class="border border-warning rounded p-1 mb-2 bg-black mt-4">
+                <img [src]="bebida.imagen" class="w-100 rounded img-bebida" [alt]="bebida.nombre">
+              </div>
+              <h5 class="fw-bold text-warning mb-2">{{ bebida.nombre }}</h5>
+            </div>
+            
+            <div class="mt-auto pt-2 border-top border-secondary">
+              <p class="text-light small mb-2 desc-bebida">
+                <strong>{{ bebida.descripcion }}</strong>
+              </p>
+
+              <div class="input-group input-group-sm mt-2">
+                <input type="number" min="1" [(ngModel)]="bebida.cantidad" class="form-control text-center bg-light text-dark fw-bold input-cantidad">
+                <button (click)="comprar(bebida)" class="btn btn-warning fw-bold text-dark w-75">Comprar</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  
+  <div *ngIf="mostrarModal" class="modal-overlay">
+      <div class="card bg-dark text-white border-warning p-4 shadow text-center modal-caja">
+        
+        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom border-warning pb-2">
+          <h5 class="text-warning fw-bold m-0 titulo-modal">COMPRA DE BEBIDAS</h5>
+          <button (click)="cerrarModal()" class="btn btn-sm text-warning fw-bold fs-5 p-0 border-0 bg-transparent">×</button>
+        </div>
+
+        <div class="py-3">
+          <p class="text-light m-0 texto-modal">{{ mensajeModal }}</p>
+        </div>
+
+        <div class="text-center mt-3 pt-2 border-top border-warning">
+          <button (click)="cerrarModal()" class="btn btn-warning fw-bold text-dark px-4 py-1 shadow">
+            Vale
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+</div>

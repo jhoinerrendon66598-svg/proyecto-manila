@@ -1,0 +1,24 @@
+/* Marca MANILA destacada */
+.navbar-brand {
+  color: #ffc107 !important;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  letter-spacing: 1px;
+}
+
+
+.nav-link {
+  transition: all 0.3s ease;
+  color: #d4af37 !important;
+}
+
+.nav-link:hover, .hover-gold:hover {
+  color: #ffffff !important;
+  background-color: rgba(212, 175, 55, 0.2);
+}
+
+
+.active-link {
+  color: #ffffff !important;
+  border-bottom: 2px solid #ffc107;
+  font-weight: bold;
+}

@@ -1,0 +1,138 @@
+<div class="container-fluid px-4 py-3 d-flex flex-column min-vh-100">
+
+  <div class="flex-grow-1 text-center">
+
+    
+    <h2 class="text-warning fw-bold display-6 mb-2 titulo-seccion">
+      Tu Pedido 📄
+    </h2>
+    
+    <div class="row justify-content-center mb-4">
+      <div class="col-lg-8 col-md-10 text-start">
+        
+        <!-- Sección de Comidas -->
+        <div *ngIf="tieneComidas()">
+          <h4 class="text-warning mb-3">Comidas</h4>
+          <div *ngFor="let item of listaComidasPedido">
+            <div *ngIf="item.tipo === 'comida'" class="card bg-dark text-white border-warning p-3 mb-2 shadow">
+              <div class="row align-items-center">
+                <div class="col-md-5 text-start">
+                  <span class="fw-bold text-warning item-nombre">{{ item.nombre }}</span>
+                </div>
+                <div class="col-md-4 text-center">
+                  <span class="text-light">
+                    Cantidad: {{ item.cantidad || 1 }} | Subtotal: $ {{ (item.precio || 0) * (item.cantidad || 1) | number:'1.0-0' }}
+                  </span>
+                </div>
+                <div class="col-md-3 text-end">
+                  <button (click)="quitarItem(item.nombre)" class="btn btn-danger btn-sm fw-bold px-3">
+                    Quitar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div *ngIf="tieneBebidas()" class="mt-4">
+          <h4 class="text-warning mb-3">Bebidas</h4>
+          <div *ngFor="let item of listaComidasPedido">
+            <div *ngIf="item.tipo === 'bebida'" class="card bg-dark text-white border-warning p-3 mb-2 shadow">
+              <div class="row align-items-center">
+                <div class="col-md-5 text-start">
+                  <span class="fw-bold text-warning item-nombre">{{ item.nombre }}</span>
+                </div>
+                <div class="col-md-4 text-center">
+                  <span class="text-light">
+                    Cantidad: {{ item.cantidad || 1 }} | Subtotal: $ {{ (item.precio || 0) * (item.cantidad || 1) | number:'1.0-0' }}
+                  </span>
+                </div>
+                <div class="col-md-3 text-end">
+                  <button (click)="quitarItem(item.nombre)" class="btn btn-danger btn-sm fw-bold px-3">
+                    Quitar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div *ngIf="listaComidasPedido && listaComidasPedido.length > 0" class="text-end mt-4">
+          <h3 class="text-warning fw-bold">Total: $ {{ calcularTotalGeneral() | number:'1.0-0' }}</h3>
+        </div>
+
+        <!-- Si no hay nada seleccionado -->
+        <div *ngIf="!listaComidasPedido || listaComidasPedido.length === 0" class="text-center mt-3">
+          <p class="text-warning fst-italic mb-4 fw-bold texto-vacio">
+            ¡¡¡ Aún no se han agregado comidas ni bebidas al pedido !!!
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="card bg-dark text-white shadow border border-warning p-4 text-start">
+          
+          <h5 class="text-warning fw-bold mb-3 border-bottom border-warning pb-2">
+            Datos Personales del Comprador
+          </h5>
+
+          <div class="mb-3">
+            <input type="text" [(ngModel)]="nombre" class="form-control bg-light text-dark border-warning" placeholder="Nombre completo . . .">
+          </div>
+
+          <div class="mb-3">
+            <input type="text" [(ngModel)]="telefono" class="form-control bg-light text-dark border-warning" placeholder="Teléfono . . .">
+          </div>
+
+          <div class="mb-3">
+            <input type="text" [(ngModel)]="direccion" class="form-control bg-light text-dark border-warning" placeholder="Dirección de entrega . . .">
+          </div>
+
+          <div class="text-center mt-3">
+            <button (click)="confirmarPedido()" class="btn btn-warning fw-bold text-dark w-100 py-2 shadow">
+              Confirmar Pedido y Descargar PDF
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  
+<div *ngIf="mensajeAlerta" class="modal-overlay">
+  <div class="modal-manila-estilo">
+    
+    
+    <div class="modal-header-manila">
+      <span class="modal-titulo">COMPRA DE PEDIDOS</span>
+      <button type="button" class="btn-cerrar-x" (click)="cerrarAlerta()">✕</button>
+    </div>
+
+    <
+    <hr class="linea-dorada">
+
+    
+    <div class="modal-body-manila">
+      <p>{{ mensajeAlerta }}</p>
+    </div>
+
+    
+    <hr class="linea-dorada">
+
+    
+    <div class="modal-footer-manila">
+      <button type="button" class="btn-vale" (click)="cerrarAlerta()">ok</button>
+    </div>
+
+  </div>
+</div>
+
+</div>

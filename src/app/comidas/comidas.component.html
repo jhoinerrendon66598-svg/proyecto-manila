@@ -1,0 +1,118 @@
+<div class="container-fluid px-4 py-3 d-flex flex-column min-vh-100">
+
+  <div class="flex-grow-1">
+
+    
+    <div class="card bg-dark text-white shadow border border-warning mb-4 p-3">
+      <div class="row align-items-center g-3">
+        
+        <div class="col-lg-4 col-md-12 text-center text-lg-start border-lg-end border-warning">
+          <h3 class="fw-bold text-warning m-0">CATEGORÍAS 🍣</h3>
+        </div>
+
+        <div class="col-lg-8 col-md-12">
+          <div class="d-flex flex-column gap-2">
+            <div class="input-group">
+              <input type="text" [(ngModel)]="textoBusquedaNombre" class="form-control bg-light text-dark border-warning" placeholder="Buscar Comida por Nombre . . .">
+              <button (click)="buscarPorNombre()" class="btn btn-warning fw-bold text-dark px-4" type="button">Buscar</button>
+            </div>
+            <div class="input-group">
+              <input type="text" [(ngModel)]="textoBusquedaIngrediente" class="form-control bg-light text-dark border-warning" placeholder="Buscar Comida por Ingrediente . . .">
+              <button (click)="buscarPorIngrediente()" class="btn btn-warning fw-bold text-dark px-4" type="button">Buscar</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-3 mb-5">
+      
+      <div class="col" *ngFor="let cat of [
+        {name: 'Beef', img: 'https://images.unsplash.com/photo-1504973960431-1c467e159aa4?auto=format&fit=crop&w=800&q=80'},
+        {name: 'Chicken', img: 'https://images.unsplash.com/photo-1773620494293-e9e075dd48fd?auto=format&fit=crop&w=800&q=80'},
+        {name: 'Dessert', img: 'https://images.unsplash.com/photo-1698688333029-d87ff7f0c0d7?auto=format&fit=crop&w=800&q=80'},
+        {name: 'Lamb', img: 'https://images.unsplash.com/photo-1734987052573-0fbe611842ae?auto=format&fit=crop&w=800&q=80'},
+        {name: 'Miscellaneous', img: 'https://images.unsplash.com/photo-1686909143445-ecd2595e554b?auto=format&fit=crop&w=800&q=80'},
+        {name: 'Pasta', img: 'https://images.unsplash.com/photo-1713561058969-793049b01712?auto=format&fit=crop&w=800&q=80'}
+      ]">
+        <div class="card bg-dark text-white shadow border border-warning h-100 p-2 text-center">
+          <div class="border border-warning rounded p-1 mb-2 bg-black">
+            <img [src]="cat.img" class="w-100 rounded img-cat-superior" [alt]="cat.name">
+          </div>
+          <h6 class="fw-bold text-warning mb-2">{{ cat.name }}</h6>
+          <button (click)="seleccionarCategoria(cat.name)" class="btn btn-outline-warning btn-sm w-100 fw-bold mt-auto">Ver comidas</button>
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div *ngIf="mostrarPlatos">
+      
+      <div class="text-center my-4">
+        <h2 class="text-warning fw-bold display-5 border-bottom border-warning pb-2 d-inline-block titulo-seccion">Nuestras Comidas</h2>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div *ngIf="comidasFiltradas.length === 0" class="col-12 text-center py-4">
+          <h5 class="text-warning">No se encontraron resultados para tu búsqueda.</h5>
+        </div>
+
+        <div *ngFor="let comida of comidasFiltradas" class="col-lg-3 col-md-6">
+          <div class="card bg-dark text-white shadow border border-warning h-100 p-2 text-center position-relative d-flex flex-column justify-content-between">
+            
+            <!-- Precio flotante -->
+            <span class="position-absolute top-0 end-0 badge bg-warning text-dark fw-bold m-3 px-3 py-2 shadow badge-precio">
+              $ {{ comida.precio | number }}
+            </span>
+
+            <div>
+              <div class="border border-warning rounded p-1 mb-2 bg-black mt-4">
+                <img [src]="comida.imagen" class="w-100 rounded img-plato" [alt]="comida.nombre">
+              </div>
+              <h5 class="fw-bold text-warning mb-2">{{ comida.nombre }}</h5>
+            </div>
+            
+            <div class="mt-auto pt-2 border-top border-secondary">
+              <p class="text-light small mb-2 desc-plato">
+                <strong>{{ comida.descripcion }}</strong>
+              </p>
+
+              <div class="input-group input-group-sm mt-2">
+                <input type="number" min="1" [(ngModel)]="comida.cantidad" class="form-control text-center bg-light text-dark fw-bold input-cantidad">
+                <button (click)="comprar(comida)" class="btn btn-warning fw-bold text-dark w-75">Comprar</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  
+  <div *ngIf="mostrarModal" class="modal-backdrop-custom modal-overlay">
+      <div class="card bg-dark text-white border-warning p-4 shadow text-center modal-caja">
+        
+        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom border-warning pb-2">
+          <h5 class="text-warning fw-bold m-0 titulo-modal">COMPRA DE COMIDAS</h5>
+          <button (click)="cerrarModal()" class="btn btn-sm text-warning fw-bold fs-5 p-0 border-0 bg-transparent">×</button>
+        </div>
+
+        <div class="py-3">
+          <p class="text-light m-0 texto-modal">{{ mensajeModal }}</p>
+        </div>
+
+        <div class="text-center mt-3 pt-2 border-top border-warning">
+          <button (click)="cerrarModal()" class="btn btn-warning fw-bold text-dark px-4 py-1 shadow">
+            Vale
+          </button>
+        </div>
+
+      </div>
+    </div>
+</div>

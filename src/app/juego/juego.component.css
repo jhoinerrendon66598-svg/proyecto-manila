@@ -1,0 +1,50 @@
+:host {
+  display: block;
+  background-color: #0b0b0b;
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+.caja-oriental {
+  background: rgba(20, 20, 20, 0.95);
+  border: 2px solid #d4af37;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 25px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+
+.texto-dorado {
+  color: #f5d77f;
+}
+
+/* Contenedor general del tablero */
+.tablero-juego {
+  max-width: 480px;
+  width: 100%;
+}
+
+/* Estilo base de cada carta */
+.carta-juego {
+  height: 90px;
+  width: 100%;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.carta-juego:hover {
+  transform: scale(1.03);
+  filter: brightness(1.1);
+}
+
+/* Fondo con degradado radial exacto para la carta oculta */
+.carta-oculta {
+  background: radial-gradient(circle, #555555 0%, #000000 80%);
+}
+
+/* Estilo para la X roja de las cartas vacías */
+.carta-vacia {
+  font-size: 2.2rem;
+  text-shadow: 2px 2px 4px #000000;
+}

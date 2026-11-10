@@ -1,0 +1,54 @@
+<div class="container-fluid px-4 py-3 d-flex flex-column min-vh-100">
+
+  
+  <div class="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+
+    
+    <div class="text-center mb-4">
+      <h3 class="fw-bold text-warning text-uppercase m-0" style="text-shadow: 2px 2px 4px #000000; letter-spacing: 1px;">
+        🌌 ENCUENTRA EL PLATO Y LA BEBIDA 🌌
+      </h3>
+    </div>
+
+    
+    <div *ngIf="juegoTerminado" class="alert alert-warning border border-warning bg-dark text-warning text-center fw-bold shadow mb-4">
+      🎉 ¡Felicidades! Has encontrado todas las parejas de platos y bebidas.
+      <div class="mt-2">
+        <button (click)="iniciarJuego()" class="btn btn-warning btn-sm fw-bold text-dark">Jugar de nuevo</button>
+      </div>
+    </div>
+
+    
+<div class="card bg-dark text-white p-3 border border-warning shadow mx-auto tablero-juego">
+  <div class="row row-cols-4 g-2">
+    
+    <div *ngFor="let carta of cartas" class="col">
+      <div (click)="voltearCarta(carta)" 
+           class="carta-juego rounded-3 border border-warning d-flex align-items-center justify-content-center shadow position-relative overflow-hidden">
+        
+        
+        <div *ngIf="!carta.volteada" class="w-100 h-100 rounded-3 carta-oculta"></div>
+
+        
+        <div *ngIf="carta.volteada && carta.tipo === 'vacia'" 
+             class="w-100 h-100 rounded-3 d-flex align-items-center justify-content-center bg-black text-danger fw-bold carta-vacia">
+          ❌
+        </div>
+
+        
+        <img *ngIf="carta.volteada && carta.tipo !== 'vacia'" 
+             [src]="carta.imagen" 
+             class="w-100 h-100 rounded-3 object-fit-cover" 
+             [alt]="carta.tipo">
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  </div>
+
+  
+
+</div>
